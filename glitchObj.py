@@ -12,12 +12,6 @@ import random
 exportedFile = '/Users/hanswillemgijzel/Documents/C4D Glitch OBJ/modelExport.obj'
 glitchedFile = '/Users/hanswillemgijzel/Documents/C4D Glitch OBJ/modelGlitched.obj'
 
-#if alt is pressed when launching the script, open the last saved glithed file
-bc = c4d.BaseContainer()
-if c4d.gui.GetInputState(c4d.BFM_INPUT_KEYBOARD,c4d.BFM_INPUT_CHANNEL,bc):
-    if bc[c4d.BFM_INPUT_QUALIFIER] & c4d.QALT:
-        c4d.documents.MergeDocument(doc, glitchedFile, 1)
-
 #save doc as obj
 c4d.documents.SaveDocument(doc, exportedFile ,c4d.SAVEDOCUMENTFLAGS_0, c4d.FORMAT_OBJEXPORT)
 
