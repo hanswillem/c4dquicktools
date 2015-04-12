@@ -2,7 +2,7 @@
 Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
 C4D R16.021
 Name-US:Glitch Obj
-Description-US:Glitches the current scene by exporting it as .obj and randomizing the data of the file
+Description-US:Glitches the current scene by exporting it as .obj and randomising the data.
 """
 
 import c4d
@@ -36,7 +36,7 @@ for l in f:
         rn2 = random.choice(range(10))
         l = [rn1 if i == str(rn2) else i for i in l] #pick random numbers and change them in other random numbers
         #l = [0 if i == 'f' else i for i in l] #remove faces
-        l = [str(i) for i in l]
+        l = [str(i) for i in l]     
     fn.write(''.join(l))
     count = count + 1
 
