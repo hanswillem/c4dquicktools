@@ -1,5 +1,5 @@
 """
-Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
+Copyright: RedRum Bureau (www.redrumbureau.com)
 C4D R16.038
 
 Name-US:Render Layers
