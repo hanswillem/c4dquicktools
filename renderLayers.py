@@ -58,7 +58,7 @@ def main():
                 outputFile = renderPath + '/_tmp files/'  + "%02d" % (cnt,) + ' ' + renderFile + '_' + i.GetName()
                 c4d.documents.SaveDocument(doc, outputFile ,c4d.SAVEDOCUMENTFLAGS_0, c4d.FORMAT_C4DEXPORT)
                 #add the file to the renderqueue
-                rq.AddFile(outputFile, 1)
+                rq.AddFile(outputFile, cnt)
                 c4d.EventAdd()
                 #next
                 cnt += 1
