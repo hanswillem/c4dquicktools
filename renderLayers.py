@@ -34,7 +34,7 @@ def main():
             #get renderqueue
             rq = c4d.documents.GetBatchRender()
             rq.Open()
-            cnt = 0
+            cnt = 1
             
             for i in layers:
                 #un-solo all layers
