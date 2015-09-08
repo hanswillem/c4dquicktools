@@ -39,8 +39,6 @@ f.close()
 fn.close()
 c4d.documents.MergeDocument(doc, glitchedFile, c4d.SCENEFILTER_OBJECTS, None)
 
-c4d.EventAdd()
-
 #clean up scene
 c4d.CallCommand(12168) #remove unused materials
 c4d.CallCommand(100004766) #select all objects
@@ -48,3 +46,5 @@ for i in doc.GetActiveObjects(1):
     for j in i.GetTags():
         if j.GetType() == 5711:
             j.Remove()
+
+c4d.EventAdd()
