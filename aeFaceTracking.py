@@ -9,7 +9,7 @@ import c4d
 from c4d import gui
 
 #get selected objects and check if the list is larger than 1
-allObjs = doc.GetActiveObjects(1)
+allObjs = doc.GetActiveObjects(2)
 if len(allObjs) < 2:
     gui.MessageDialog('Select at least 2 objects!')
 else:
