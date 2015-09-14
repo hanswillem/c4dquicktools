@@ -1,4 +1,3 @@
-
 """
 Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
 C4D R17.032
