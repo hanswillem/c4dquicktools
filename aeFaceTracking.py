@@ -39,6 +39,7 @@ else:
         #get head start x,y
         hsx = hxCurve.GetValue(c4d.BaseTime(0, doc.GetFps()), doc.GetFps())
         hsy = hyCurve.GetValue(c4d.BaseTime(0, doc.GetFps()), doc.GetFps())
+        
         ##get head current x,y
         hx = hxCurve.GetValue(c4d.BaseTime(i, doc.GetFps()), doc.GetFps())
         hy = hyCurve.GetValue(c4d.BaseTime(i, doc.GetFps()), doc.GetFps())
@@ -74,6 +75,6 @@ else:
             yKey.SetValue(yCurve, ny)
 
             j.InsertUnder(headObj)
-            
+
     #set the scale of the headObj to 1
     headObj[c4d.ID_BASEOBJECT_REL_SCALE] = c4d.Vector(1, 1, 1)
