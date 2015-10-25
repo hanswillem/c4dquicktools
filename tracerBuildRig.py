@@ -1,3 +1,11 @@
+"""
+Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
+C4D R17.032
+
+Name-US:Tracer Build Rig
+Description-US:Builds a tracer rig from the selected joints
+"""
+
 import c4d
 
 nulls = doc.GetActiveObjects(2)
