@@ -8,11 +8,12 @@ for i in nulls:
 for i in nulls:
     doc.InsertObject(i)
     
-
 #create tracer
 doc.SetSelection(nulls[0], c4d.SELECTION_NEW)
-doc.SetSelection(nulls[1], c4d.SELECTION_ADD)
-doc.SetSelection(nulls[2], c4d.SELECTION_ADD)
+
+for i in range(1, len(nulls)):
+    doc.SetSelection(nulls[i], c4d.SELECTION_ADD)
+    
 c4d.CallCommand(1018655, 1018655)
 tracer = doc.GetActiveObject()
 tracer[c4d.MGTRACEROBJECT_MODE] = 1
@@ -20,22 +21,25 @@ tracer[c4d.SPLINEOBJECT_TYPE] = 2
 tracer[c4d.SPLINEOBJECT_INTERPOLATION] = 3
 tracer[c4d.SPLINEOBJECT_ANGLE] = 0
 
+#store global position of nulls
+allgp = []
+for i in nulls:
+    allgp.append(i.GetMg())
 
 #create hierarchy
-gp0 = nulls[0].GetMg()
-gp1 = nulls[1].GetMg()
-gp2 = nulls[2].GetMg()
+nullNrs = range(1, len(nulls))
+nullNrs.reverse()
+for i in nullNrs:
+    nulls[i].InsertUnder(nulls[i-1])
 
-nulls[2].InsertUnder(nulls[1])
-nulls[1].InsertUnder(nulls[0])
+#restore global position of nulls
+for i in range(len(nulls)):
+    nulls[i].SetMg(allgp[i])
 
-nulls[0].SetMg(gp0)
-nulls[1].SetMg(gp1)
-nulls[2].SetMg(gp2)
 
-nulls[0].SetName('joint 01')
-nulls[1].SetName('joint 02')
-nulls[2].SetName('joint 03')
+#rename joints
+for i in range(len(nulls)):
+    nulls[i].SetName('joint')
 
 #make wrapper null
 doc.SetSelection(nulls[0], c4d.SELECTION_NEW)
@@ -49,7 +53,7 @@ wrapper[c4d.NULLOBJECT_ORIENTATION] = 3
 
 #create ik tag
 sel = doc.SetSelection(nulls[0], c4d.SELECTION_NEW)
-sel = doc.SetSelection(nulls[2], c4d.SELECTION_ADD)
+sel = doc.SetSelection(nulls[-1], c4d.SELECTION_ADD)
 
 #create ik chain
 c4d.CallCommand(1019884, 1019884)
