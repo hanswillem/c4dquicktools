@@ -1,6 +1,6 @@
 """
 Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
-C4D R16.021
+C4D R17.032
 
 Name-US:Reposition Object
 Description-US:Repositions the first selected object to the second selected object (position and rotation)
