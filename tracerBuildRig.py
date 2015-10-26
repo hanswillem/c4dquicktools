@@ -7,23 +7,18 @@ Description-US:Builds a tracer rig from the selected joints
 """
 
 import c4d
+doc.StartUndo()
 
 nulls = doc.GetActiveObjects(2)
-
-#put nulls in order of viewportselection
-for i in nulls:
-    i.Remove()
-for i in nulls:
-    doc.InsertObject(i)
     
 #create tracer
-doc.SetSelection(nulls[0], c4d.SELECTION_NEW)
-
-for i in range(1, len(nulls)):
-    doc.SetSelection(nulls[i], c4d.SELECTION_ADD)
-    
-c4d.CallCommand(1018655, 1018655)
-tracer = doc.GetActiveObject()
+tracer = c4d.BaseObject(1018655)
+doc.InsertObject(tracer)
+doc.AddUndo(c4d.UNDOTYPE_NEW, tracer) #*****UNDO*****
+tracerList = tracer[c4d.MGTRACEROBJECT_OBJECTLIST]
+for i in nulls:  
+    tracerList.InsertObject(i, 0)
+tracer[c4d.MGTRACEROBJECT_OBJECTLIST] = tracerList
 tracer[c4d.MGTRACEROBJECT_MODE] = 1
 tracer[c4d.SPLINEOBJECT_TYPE] = 2
 tracer[c4d.SPLINEOBJECT_INTERPOLATION] = 3
@@ -38,41 +33,49 @@ for i in nulls:
 nullNrs = range(1, len(nulls))
 nullNrs.reverse()
 for i in nullNrs:
+    doc.AddUndo(c4d.UNDOTYPE_CHANGE, nulls[i]) #*****UNDO*****
     nulls[i].InsertUnder(nulls[i-1])
 
 #restore global position of nulls
 for i in range(len(nulls)):
     nulls[i].SetMg(allgp[i])
 
-
 #rename joints
 for i in range(len(nulls)):
     nulls[i].SetName('joint')
 
-#make wrapper null
-doc.SetSelection(nulls[0], c4d.SELECTION_NEW)
-c4d.CallCommand(100004772) #group objects
-wrapper = doc.GetActiveObject()
-wrapper.SetName('group')
-wrapper[c4d.NULLOBJECT_DISPLAY] = 2
-wrapper[c4d.NULLOBJECT_RADIUS] = 50
-wrapper[c4d.NULLOBJECT_ORIENTATION] = 3
+#make group null
+group = c4d.BaseObject(5140)
+group.SetMg(allgp[0])
+doc.AddUndo(c4d.UNDOTYPE_CHANGE, nulls[0]) #*****UNDO*****
+nulls[0].InsertUnder(group)
+nulls[0].SetMg(allgp[0])
+group.SetName('group')
+group[c4d.NULLOBJECT_DISPLAY] = 2
+group[c4d.NULLOBJECT_RADIUS] = 50
+group[c4d.NULLOBJECT_ORIENTATION] = 3
+doc.InsertObject(group)
+doc.AddUndo(c4d.UNDOTYPE_NEW, group) #*****UNDO*****
 
+#put tracer in group
+tracer.InsertUnder(group)
 
-#create ik tag
-sel = doc.SetSelection(nulls[0], c4d.SELECTION_NEW)
-sel = doc.SetSelection(nulls[-1], c4d.SELECTION_ADD)
+#create ik chain and goal
+iktag = c4d.BaseTag(1019561)
+iktag[c4d.ID_CA_IK_TAG_TIP] = nulls[-1]
+nulls[0].InsertTag(iktag)
+doc.AddUndo(c4d.UNDOTYPE_NEW, iktag) #*****UNDO*****
 
-#create ik chain
-c4d.CallCommand(1019884, 1019884)
-goal = doc.GetActiveObject()
+goal = c4d.BaseObject(5140)
+goal.SetMg(allgp[-1])
 goal[c4d.NULLOBJECT_DISPLAY] = 11
 goal[c4d.NULLOBJECT_ORIENTATION] = 1
 goal[c4d.NULLOBJECT_RADIUS] = 25
 goal.SetName('goal')
-
-#put tracer in wrapper
-tracer.InsertUnder(wrapper)
+doc.InsertObject(goal)
+doc.AddUndo(c4d.UNDOTYPE_NEW, goal) #*****UNDO*****
+iktag[c4d.ID_CA_IK_TAG_TARGET] = goal
 
 
 c4d.EventAdd()
+doc.EndUndo()
