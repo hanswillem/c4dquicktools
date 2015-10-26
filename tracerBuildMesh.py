@@ -6,6 +6,9 @@ Name-US:Tracer Build Mesh
 Description-US:Builds a mesh from the tracer rig
 """
 
+#The script needs a tracer rig's group null to be selected for it to work properly.
+#It creates a sweep object based on the group null and a rectangle.
+
 import c4d
 doc.StartUndo()
 
