@@ -3,7 +3,7 @@ Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
 C4D R17.048
 
 Name-US:NOM Setup Ropes
-Description-US:Turns selected splines into meshes
+Description-US:Turns selected dynamic splines into dynamic meshes
 """
 
 
@@ -17,10 +17,10 @@ def setupPointCache(n):
     for i in objs:
         
         #setup cylinder
-        parent = i.GetUp()
         cyl = c4d.BaseObject(5170)
         cyl[c4d.PRIM_CYLINDER_RADIUS] = n
         cyl[c4d.PRIM_CYLINDER_HSUB] = 50        
+        parent = i.GetUp()
         if parent != None:
             cyl.InsertUnder(parent)
         else:
