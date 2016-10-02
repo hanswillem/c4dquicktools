@@ -1,6 +1,7 @@
 """
 Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
 C4D R17.048
+
 Name-US:Create Card With Image
 Description-US:Creates a card with the selected material as texture
 """
@@ -11,8 +12,17 @@ from c4d import gui, bitmaps
 import os
 
 
+
 def getImageSize(mat): 
-    pathToFile = mat[c4d.MATERIAL_COLOR_SHADER][c4d.BITMAPSHADER_FILENAME]
+    pathToFile = ''
+    try:    
+        pathToFile = mat[c4d.MATERIAL_COLOR_SHADER][c4d.BITMAPSHADER_FILENAME]
+    except:
+        try:
+            pathToFile = mat[c4d.MATERIAL_LUMINANCE_SHADER][c4d.BITMAPSHADER_FILENAME]
+        except:
+            return [400, 400]
+
     bmp = bitmaps.BaseBitmap(pathToFile) 
     bmp.InitWith(pathToFile)   
     w, h = bmp.GetSize() 
