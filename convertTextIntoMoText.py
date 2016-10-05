@@ -1,3 +1,12 @@
+"""
+Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
+C4D R18
+
+Name-US:Convert Text Into MoText
+Description-US:Converts regular text into a MoText object
+"""
+
+
 import c4d
 
 objs = doc.GetActiveObjects(1)
