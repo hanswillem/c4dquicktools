@@ -1,3 +1,11 @@
+"""
+Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
+C4D R18.011
+
+Name-US:Download And Install Scripts
+Description-US:Downloads scripts from github and installs them
+"""
+
 import c4d
 from c4d import gui
 import urllib
