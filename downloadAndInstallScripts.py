@@ -25,7 +25,7 @@ def main():
 
         # download github repo
         url = 'https://github.com/hanswillem/c4dquicktools/archive/master.zip'
-        targetDir = '/Users/gewoonsander/Desktop/'
+        targetDir = os.path.expanduser('~/Desktop/')
         target = targetDir + '/master.zip'
         urllib.urlretrieve(url, target)
 
@@ -34,7 +34,7 @@ def main():
         zip_ref = zipfile.ZipFile(target, mode='r')
         zip_ref.extractall(targetDir)
         zip_ref.close()
-        extractdDir = '/Users/gewoonsander/Desktop/c4dquicktools-master'
+        extractdDir = os.path.expanduser('~/Desktop/c4dquicktools-master')
 
 
         # copy
