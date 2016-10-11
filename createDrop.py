@@ -1,3 +1,11 @@
+"""
+Copyright: Hans Willem Gijzel (hanswillemgijzel@gmail.com)
+C4D R18.011
+
+Name-US:Create Drop
+Description-US:Creates a MoSpline object in a Metaball object from a Spline
+"""
+
 import c4d
 
 
